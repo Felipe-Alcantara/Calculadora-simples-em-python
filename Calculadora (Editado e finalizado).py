@@ -1,6 +1,6 @@
 from tkinter import *
 
-criador = 'HSantana04™#6203'
+criador = 'dj_felixo'
 
 
 def button_press(num):
