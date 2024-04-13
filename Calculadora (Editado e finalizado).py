@@ -31,7 +31,7 @@ def clear():
 
 window = Tk()
 window.title("Calculadora")
-window.geometry("500x500")
+window.geometry("800x600")
 equation_text = ""
 equation_label = StringVar()
 label = Label(window, textvariable=equation_label, bg="White", width=24, height=2)
