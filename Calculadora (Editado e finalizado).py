@@ -2,11 +2,16 @@ from tkinter import *
 from tkinter import font, ttk
 from datetime import datetime
 import math
+import json
+import os
 
 criador = 'dj_felixo'
 
 # Lista para armazenar o histórico
 history = []
+
+# Arquivo para salvar histórico
+HISTORY_FILE = "calculator_history.json"
 
 # Variável global para o tema atual
 current_theme = "dark"
@@ -132,8 +137,32 @@ def insert_constant(constant):
 def add_to_history(calculation, result):
     """Adiciona um cálculo ao histórico"""
     timestamp = datetime.now().strftime("%H:%M:%S")
-    history.append(f"{timestamp} | {calculation} = {result}")
+    history_entry = f"{timestamp} | {calculation} = {result}"
+    history.append(history_entry)
     update_history_display()
+    save_history()
+
+
+def save_history():
+    """Salva o histórico em arquivo JSON"""
+    try:
+        with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Erro ao salvar histórico: {e}")
+
+
+def load_history():
+    """Carrega o histórico do arquivo JSON"""
+    global history
+    try:
+        if os.path.exists(HISTORY_FILE):
+            with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
+                history = json.load(f)
+                update_history_display()
+    except Exception as e:
+        print(f"Erro ao carregar histórico: {e}")
+        history = []
 
 
 def update_history_display():
@@ -156,6 +185,32 @@ def clear_history():
     global history
     history = []
     update_history_display()
+    save_history()
+
+
+def export_history():
+    """Exporta o histórico para um arquivo de texto"""
+    try:
+        if not history:
+            return
+        
+        filename = f"historico_calculadora_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write("=" * 50 + "\n")
+            f.write("HISTÓRICO DA CALCULADORA CIENTÍFICA PRO\n")
+            f.write("=" * 50 + "\n\n")
+            for calc in history:
+                f.write(f"{calc}\n")
+            f.write("\n" + "=" * 50 + "\n")
+            f.write(f"Total de cálculos: {len(history)}\n")
+            f.write(f"By: {criador}\n")
+        
+        # Mensagem de sucesso
+        from tkinter import messagebox
+        messagebox.showinfo("Sucesso", f"Histórico exportado para:\n{filename}")
+    except Exception as e:
+        from tkinter import messagebox
+        messagebox.showerror("Erro", f"Erro ao exportar histórico:\n{e}")
 
 
 def equals():
@@ -232,7 +287,13 @@ def apply_theme():
         fg=theme["fg_secondary"],
         insertbackground=theme["fg_primary"]
     )
+    
+    # Atualiza tags do histórico
+    history_text.tag_config("calculation", foreground=theme["fg_secondary"])
+    history_text.tag_config("empty", foreground="#95a5a6", justify=CENTER)
+    
     clear_history_btn.configure(bg=theme["btn_op"], activebackground=theme["btn_op_hover"])
+    export_history_btn.configure(bg="#3498db", activebackground="#2980b9")
     
     # Atualiza cores dos botões numéricos
     for widget in frame.winfo_children():
@@ -343,13 +404,17 @@ history_text.pack(side=LEFT, fill=BOTH, expand=True)
 history_scrollbar.config(command=history_text.yview)
 
 # Tags de estilo para o histórico
-history_text.tag_config("calculation", foreground="#00ff88")
-history_text.tag_config("empty", foreground="#8e8e9e", justify=CENTER)
+history_text.tag_config("calculation", foreground="#ecf0f1")
+history_text.tag_config("empty", foreground="#95a5a6", justify=CENTER)
+
+# Frame para botões do histórico
+history_buttons_frame = Frame(history_frame, bg="#1e1e2e")
+history_buttons_frame.pack(fill=X, padx=5, pady=5)
 
 # Botão para limpar histórico
 clear_history_btn = Button(
-    history_frame,
-    text="🗑️ Limpar Histórico",
+    history_buttons_frame,
+    text="🗑️ Limpar",
     command=clear_history,
     bg="#ff6b35",
     fg="white",
@@ -359,7 +424,22 @@ clear_history_btn = Button(
     pady=5,
     cursor="hand2"
 )
-clear_history_btn.pack(fill=X, padx=5, pady=5)
+clear_history_btn.pack(side=LEFT, fill=X, expand=True, padx=(0, 3))
+
+# Botão para exportar histórico
+export_history_btn = Button(
+    history_buttons_frame,
+    text="💾 Exportar",
+    command=export_history,
+    bg="#3498db",
+    fg="white",
+    font=font.Font(family="Arial", size=10, weight="bold"),
+    relief=RAISED,
+    borderwidth=2,
+    pady=5,
+    cursor="hand2"
+)
+export_history_btn.pack(side=RIGHT, fill=X, expand=True, padx=(3, 0))
 
 # Display da calculadora
 label = Label(
@@ -751,8 +831,8 @@ theme_btn_style = {
 theme_btn = Button(calculator_frame, text='☀️ Modo Claro', command=toggle_theme, **theme_btn_style)
 theme_btn.pack(pady=(0, 10), fill=X, padx=10)
 
-# Inicializa o histórico vazio
-update_history_display()
+# Carrega o histórico salvo e inicializa a exibição
+load_history()
 
 window.mainloop()
 

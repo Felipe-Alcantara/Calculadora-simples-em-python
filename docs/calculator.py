@@ -134,14 +134,39 @@ def add_to_history(calculation, result):
     timestamp = now.strftime("%H:%M:%S")
     
     # Adiciona ao histórico
-    history.append({
-        'time': timestamp,
-        'calculation': calculation,
-        'result': result
-    })
+    history_entry = f"{timestamp} | {calculation} = {result}"
+    history.append(history_entry)
     
     # Atualiza a exibição
     update_history_display()
+    
+    # Salva no localStorage
+    save_history()
+
+
+def save_history():
+    """Salva o histórico no localStorage"""
+    try:
+        from browser import window  # type: ignore
+        import json
+        window.localStorage.setItem("calculator_history", json.dumps(history))
+    except Exception as e:
+        print(f"Erro ao salvar histórico: {e}")
+
+
+def load_history():
+    """Carrega o histórico do localStorage"""
+    global history
+    try:
+        from browser import window  # type: ignore
+        import json
+        saved = window.localStorage.getItem("calculator_history")
+        if saved:
+            history = json.loads(saved)
+            update_history_display()
+    except Exception as e:
+        print(f"Erro ao carregar histórico: {e}")
+        history = []
 
 
 def update_history_display():
@@ -156,15 +181,7 @@ def update_history_display():
         # Mostra os cálculos mais recentes primeiro
         for calc in reversed(history):
             item = html.DIV(Class="history-item")
-            
-            time_elem = html.DIV(calc['time'], Class="history-time")
-            calc_elem = html.DIV(f"{calc['calculation']} =", Class="history-calculation")
-            result_elem = html.DIV(calc['result'], Class="history-result")
-            
-            item <= time_elem
-            item <= calc_elem
-            item <= result_elem
-            
+            item.text = calc
             history_list <= item
 
 
@@ -173,6 +190,43 @@ def clear_history(ev):
     global history
     history = []
     update_history_display()
+    save_history()
+
+
+def export_history(ev):
+    """Exporta o histórico para um arquivo de texto"""
+    try:
+        if not history:
+            return
+        
+        from browser import window  # type: ignore
+        
+        # Cria o conteúdo do arquivo
+        content = "=" * 50 + "\n"
+        content += "HISTÓRICO DA CALCULADORA CIENTÍFICA PRO\n"
+        content += "=" * 50 + "\n\n"
+        
+        for calc in history:
+            content += f"{calc}\n"
+        
+        content += "\n" + "=" * 50 + "\n"
+        content += f"Total de cálculos: {len(history)}\n"
+        content += "By: dj_felixo\n"
+        
+        # Cria um Blob e faz o download
+        blob = window.Blob.new([content], {"type": "text/plain"})
+        url = window.URL.createObjectURL(blob)
+        
+        # Cria link temporário para download
+        a = document.createElement("a")
+        a.href = url
+        now = datetime.now()
+        a.download = f"historico_calculadora_{now.strftime('%Y%m%d_%H%M%S')}.txt"
+        a.click()
+        
+        window.URL.revokeObjectURL(url)
+    except Exception as e:
+        print(f"Erro ao exportar histórico: {e}")
 
 
 def button_press(num):
@@ -247,6 +301,7 @@ def setup_calculator():
     document["btn-equal"].bind("click", equals)
     document["btn-clear"].bind("click", clear)
     document["btn-clear-history"].bind("click", clear_history)
+    document["btn-export-history"].bind("click", export_history)
     document["btn-theme"].bind("click", toggle_theme)
     
     # Botões científicos - operações
@@ -302,5 +357,5 @@ def setup_calculator():
 
 # Inicializa a calculadora quando o documento estiver pronto
 load_theme()
+load_history()
 setup_calculator()
-update_history_display()

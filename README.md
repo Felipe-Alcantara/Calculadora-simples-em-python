@@ -62,10 +62,14 @@ O projeto começou como um exercício de aprendizado e evoluiu para uma aplicaç
 
 ### 📜 Histórico de Cálculos
 - 💾 Registro automático de todos os cálculos
-- ⏰ Timestamp de cada operação
+- ⏰ Timestamp de cada operação (HH:MM:SS)
 - 📊 Visualização organizada e scrollável
 - 🗑️ Botão para limpar histórico
+- 💾 **Salvamento automático local** (persiste entre sessões)
+- 📤 **Exportar histórico em arquivo .txt**
 - 🎨 Interface com cards e animações
+- 💻 **Desktop**: Salvo em `calculator_history.json`
+- 🌐 **Web**: Salvo em `localStorage` do navegador
 
 ### � Regra de 3 Simples
 - ✨ Janela dedicada para cálculos de regra de 3
@@ -177,8 +181,16 @@ python -m http.server 8000
 
 5. **Alternar Tema:**
    - Clique no botão "☀️ Modo Claro" ou "🌙 Modo Escuro"
-   - O tema será salvo automaticamente (versão web)
+   - O tema será salvo automaticamente
    - Escolha entre interface clara ou escura
+
+6. **Histórico:**
+   - Visualize todos os cálculos realizados
+   - 🗑️ **Limpar**: Remove todo o histórico
+   - 💾 **Exportar**: Salva em arquivo .txt
+   - **Desktop**: Histórico salvo em `calculator_history.json` (mesmo diretório do script)
+   - **Web**: Histórico salvo no `localStorage` do navegador
+   - Persiste entre sessões (desktop e web)
 
 ### Versão Web
 
@@ -314,23 +326,6 @@ Contribuições são sempre bem-vindas! Se você tem alguma sugestão para melho
 5. Abra um Pull Request
 
 ---
-
-## 📝 Ideias para Melhorias Futuras
-
-- [x] Adicionar histórico de cálculos ✅
-- [x] Implementar operações científicas (raiz, potência, etc) ✅
-- [x] Adicionar ferramenta de Regra de 3 ✅
-- [x] Adicionar temas de cores personalizáveis ✅
-- [ ] Salvar histórico em arquivo
-- [ ] Adicionar mais funções trigonométricas (arcsin, arccos, arctan)
-- [ ] Implementar conversor de unidades
-- [ ] Adicionar regra de 3 composta
-- [ ] Criar versão mobile nativa (Kivy)
-- [ ] Gráficos de funções matemáticas
-- [ ] Modo programador (binário, hexadecimal, etc)
-
----
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
