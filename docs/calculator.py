@@ -3,7 +3,7 @@ Calculadora Pro - Versão Brython
 By: dj_felixo
 """
 
-from browser import document, html
+from browser import document, html  # type: ignore
 
 # Variável global para armazenar a equação
 equation_text = ""
