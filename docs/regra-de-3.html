@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regra de 3 - Calculadora Pro</title>
+    
+    <!-- Brython CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2e2e4e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #1e1e2e;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid #3e3e5e;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .title {
+            color: #00ff88;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .explanation {
+            background: #2e2e3e;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px solid #3e3e5e;
+        }
+
+        .explanation p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .formula {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 18px;
+            min-width: 25px;
+        }
+
+        input {
+            background: #2e2e3e;
+            color: #00ff88;
+            border: 2px solid #3e3e5e;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            width: 120px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .separator {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .divider {
+            color: #6b5eff;
+            font-size: 20px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .result {
+            background: #2e2e3e;
+            color: #00ff88;
+            border: 3px solid #00ff88;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 20px;
+            width: 120px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0 20px 0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-calculate {
+            background: #00ff88;
+            color: #1e1e2e;
+        }
+
+        .btn-clear {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .btn-back {
+            background: #6b5eff;
+            color: white;
+        }
+
+        .example {
+            background: #2e2e3e;
+            color: #8e8e9e;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 12px;
+            font-style: italic;
+            border: 1px solid #3e3e5e;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .input-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            input, .result {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body onload="brython()">
+    <div class="container">
+        <h1 class="title">📐 Regra de 3 Simples</h1>
+        
+        <div class="explanation">
+            <p>Se A está para B, então C está para X</p>
+            <p class="formula">A / B = C / X</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="input-a">A:</label>
+                    <input type="number" id="input-a" step="any" placeholder="0">
+                </div>
+                <span class="separator">está para</span>
+                <div class="input-group">
+                    <label for="input-b">B:</label>
+                    <input type="number" id="input-b" step="any" placeholder="0">
+                </div>
+            </div>
+
+            <div class="divider">═══════════════</div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="input-c">C:</label>
+                    <input type="number" id="input-c" step="any" placeholder="0">
+                </div>
+                <span class="separator">está para</span>
+                <div class="input-group">
+                    <label>X:</label>
+                    <div id="result" class="result">?</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-calculate" id="btn-calculate">🔢 Calcular</button>
+            <button class="btn btn-clear" id="btn-clear">🗑️ Limpar</button>
+            <button class="btn btn-back" id="btn-back">← Voltar</button>
+        </div>
+
+        <div class="example">
+            Exemplo: Se 2 kg custam 10 reais, quanto custam 5 kg?<br>
+            A=2, B=10, C=5 → X=25
+        </div>
+    </div>
+
+    <script type="text/python">
+from browser import document, alert
+
+def calculate(ev):
+    """Calcula a regra de 3"""
+    try:
+        a = float(document["input-a"].value)
+        b = float(document["input-b"].value)
+        c = float(document["input-c"].value)
+        
+        if a == 0:
+            document["result"].text = "Erro: A ≠ 0"
+            return
+        
+        # Fórmula: X = (B × C) / A
+        x = (b * c) / a
+        
+        document["result"].text = f"{x:.4f}"
+        
+    except ValueError:
+        document["result"].text = "Valores inválidos"
+    except Exception as e:
+        document["result"].text = "Erro"
+
+def clear_fields(ev):
+    """Limpa todos os campos"""
+    document["input-a"].value = ""
+    document["input-b"].value = ""
+    document["input-c"].value = ""
+    document["result"].text = "?"
+    document["input-a"].focus()
+
+def go_back(ev):
+    """Volta para a calculadora principal"""
+    from browser import window
+    window.location.href = "index.html"
+
+def on_enter(ev):
+    """Calcula quando pressionar Enter"""
+    if ev.key == "Enter":
+        calculate(ev)
+
+# Event listeners
+document["btn-calculate"].bind("click", calculate)
+document["btn-clear"].bind("click", clear_fields)
+document["btn-back"].bind("click", go_back)
+
+# Bind Enter nos inputs
+document["input-a"].bind("keypress", on_enter)
+document["input-b"].bind("keypress", on_enter)
+document["input-c"].bind("keypress", on_enter)
+
+# Foco inicial
+document["input-a"].focus()
+    </script>
+</body>
+</html>

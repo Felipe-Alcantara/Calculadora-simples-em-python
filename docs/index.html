@@ -13,44 +13,88 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="brython()">
-    <div class="container">
-        <div class="calculator">
-            <h1 class="title">Calculadora</h1>
-            
-            <!-- Display -->
-            <div id="display" class="display">0</div>
-            
-            <!-- Botões -->
-            <div class="buttons">
-                <!-- Linha 1 -->
-                <button class="btn btn-num" id="btn-7">7</button>
-                <button class="btn btn-num" id="btn-8">8</button>
-                <button class="btn btn-num" id="btn-9">9</button>
-                <button class="btn btn-op" id="btn-div">÷</button>
+    <div class="main-container">
+        <!-- Calculadora -->
+        <div class="calculator-container">
+            <div class="calculator">
+                <h1 class="title">Calculadora Científica Pro</h1>
                 
-                <!-- Linha 2 -->
-                <button class="btn btn-num" id="btn-4">4</button>
-                <button class="btn btn-num" id="btn-5">5</button>
-                <button class="btn btn-num" id="btn-6">6</button>
-                <button class="btn btn-op" id="btn-mult">×</button>
+                <!-- Display -->
+                <div id="display" class="display">0</div>
                 
-                <!-- Linha 3 -->
-                <button class="btn btn-num" id="btn-1">1</button>
-                <button class="btn btn-num" id="btn-2">2</button>
-                <button class="btn btn-num" id="btn-3">3</button>
-                <button class="btn btn-op" id="btn-minus">-</button>
+                <!-- Botões Científicos -->
+                <div class="sci-buttons">
+                    <button class="btn btn-sci" id="btn-sqrt">√</button>
+                    <button class="btn btn-sci" id="btn-square">x²</button>
+                    <button class="btn btn-sci" id="btn-power">xʸ</button>
+                    <button class="btn btn-sci" id="btn-percent">%</button>
+                    <button class="btn btn-sci" id="btn-inverse">1/x</button>
+                </div>
                 
-                <!-- Linha 4 -->
-                <button class="btn btn-special" id="btn-clear">C</button>
-                <button class="btn btn-num" id="btn-0">0</button>
-                <button class="btn btn-num" id="btn-dot">.</button>
-                <button class="btn btn-op" id="btn-plus">+</button>
+                <div class="sci-buttons">
+                    <button class="btn btn-sci" id="btn-sin">sin</button>
+                    <button class="btn btn-sci" id="btn-cos">cos</button>
+                    <button class="btn btn-sci" id="btn-tan">tan</button>
+                    <button class="btn btn-sci" id="btn-log">log</button>
+                    <button class="btn btn-sci" id="btn-ln">ln</button>
+                </div>
                 
-                <!-- Linha 5 - Botão Igual -->
-                <button class="btn btn-equal" id="btn-equal">=</button>
+                <div class="sci-buttons">
+                    <button class="btn btn-sci" id="btn-pi">π</button>
+                    <button class="btn btn-sci" id="btn-e">e</button>
+                    <button class="btn btn-sci" id="btn-lparen">(</button>
+                    <button class="btn btn-sci" id="btn-rparen">)</button>
+                    <button class="btn btn-sci" id="btn-backspace">←</button>
+                </div>
+                
+                <!-- Botões Numéricos -->
+                <div class="buttons">
+                    <!-- Linha 1 -->
+                    <button class="btn btn-num" id="btn-7">7</button>
+                    <button class="btn btn-num" id="btn-8">8</button>
+                    <button class="btn btn-num" id="btn-9">9</button>
+                    <button class="btn btn-op" id="btn-div">÷</button>
+                    
+                    <!-- Linha 2 -->
+                    <button class="btn btn-num" id="btn-4">4</button>
+                    <button class="btn btn-num" id="btn-5">5</button>
+                    <button class="btn btn-num" id="btn-6">6</button>
+                    <button class="btn btn-op" id="btn-mult">×</button>
+                    
+                    <!-- Linha 3 -->
+                    <button class="btn btn-num" id="btn-1">1</button>
+                    <button class="btn btn-num" id="btn-2">2</button>
+                    <button class="btn btn-num" id="btn-3">3</button>
+                    <button class="btn btn-op" id="btn-minus">-</button>
+                    
+                    <!-- Linha 4 -->
+                    <button class="btn btn-special" id="btn-clear">C</button>
+                    <button class="btn btn-num" id="btn-0">0</button>
+                    <button class="btn btn-num" id="btn-dot">.</button>
+                    <button class="btn btn-op" id="btn-plus">+</button>
+                    
+                    <!-- Linha 5 - Botão Igual -->
+                    <button class="btn btn-equal" id="btn-equal">=</button>
+                </div>
+                
+                <!-- Botão Regra de 3 -->
+                <a href="regra-de-3.html" class="btn-link">
+                    <button class="btn btn-rule">📐 Regra de 3</button>
+                </a>
+                
+                <p class="footer">By: dj_felixo</p>
             </div>
-            
-            <p class="footer">By: dj_felixo</p>
+        </div>
+
+        <!-- Histórico -->
+        <div class="history-container">
+            <div class="history">
+                <h2 class="history-title">📜 Histórico de Cálculos</h2>
+                <div id="history-list" class="history-list">
+                    <p class="history-empty">Nenhum cálculo ainda...</p>
+                </div>
+                <button class="btn btn-clear-history" id="btn-clear-history">🗑️ Limpar Histórico</button>
+            </div>
         </div>
     </div>
 

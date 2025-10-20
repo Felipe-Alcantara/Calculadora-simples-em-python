@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🧮 Calculadora Pro
+# 🧮 Calculadora Científica Pro
 
-### Uma calculadora moderna e elegante desenvolvida em Python
+### Uma calculadora científica moderna e elegante desenvolvida em Python
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Tkinter](https://img.shields.io/badge/GUI-Tkinter-green.svg)](https://docs.python.org/3/library/tkinter.html)
@@ -20,12 +20,12 @@
 
 ## 📖 Sobre o Projeto
 
-Este projeto é uma calculadora completa desenvolvida em Python, disponível em **duas versões**:
+Este projeto é uma **calculadora científica completa** desenvolvida em Python, disponível em **duas versões**:
 
 - **🖥️ Desktop**: Interface gráfica usando Tkinter com design moderno
 - **🌐 Web**: Versão Brython que roda diretamente no navegador
 
-O projeto começou como um exercício de aprendizado e evoluiu para uma aplicação com interface profissional, demonstrando conceitos de GUI, tratamento de eventos e design responsivo.
+O projeto começou como um exercício de aprendizado e evoluiu para uma aplicação profissional com funções científicas avançadas, demonstrando conceitos de GUI, tratamento de eventos, operações matemáticas complexas e design responsivo.
 
 ---
 
@@ -36,18 +36,48 @@ O projeto começou como um exercício de aprendizado e evoluiu para uma aplicaç
 - ✅ Cores vibrantes e intuitivas para diferentes tipos de botões
 - ✅ Display de alta legibilidade com fonte personalizada
 - ✅ Efeitos visuais e animações suaves
+- ✅ Histórico de cálculos com timestamps
 
-### 🔧 Funcionalidades
+### 🔧 Funcionalidades Básicas
 - ➕ Operações básicas: adição, subtração, multiplicação e divisão
 - 🔢 Suporte para números decimais
+- 📊 Suporte para parênteses
 - 🧹 Botão de limpeza (Clear)
-- ⚠️ Tratamento de erros (divisão por zero, sintaxe inválida)
-- ⌨️ Suporte completo para teclado (versão web)
+- ⌨️ Suporte completo para teclado
+- ⏮️ Função backspace (apagar último dígito)
 
-### 📱 Responsividade
+### 🔬 Funções Científicas
+- **√** Raiz quadrada
+- **x²** Potência ao quadrado
+- **xʸ** Potência customizada
+- **%** Porcentagem
+- **1/x** Inverso
+- **sin/cos/tan** Funções trigonométricas (em graus)
+- **log** Logaritmo base 10
+- **ln** Logaritmo natural
+- **π** Constante Pi (3.14159...)
+- **e** Constante de Euler (2.71828...)
+
+### 📜 Histórico de Cálculos
+- 💾 Registro automático de todos os cálculos
+- ⏰ Timestamp de cada operação
+- 📊 Visualização organizada e scrollável
+- 🗑️ Botão para limpar histórico
+- 🎨 Interface com cards e animações
+
+### � Regra de 3 Simples
+- ✨ Janela dedicada para cálculos de regra de 3
+- 🎯 Interface intuitiva com 3 valores de entrada
+- 🔢 Cálculo automático do valor X
+- 📝 Exemplos práticos inclusos
+- 💾 Resultado adicionado ao histórico
+- ⌨️ Suporte para tecla Enter
+
+### �📱 Responsividade
 - 📐 Layout adaptativo para diferentes tamanhos de tela
 - 🖱️ Botões com feedback visual ao clicar
 - 💡 Interface intuitiva e fácil de usar
+- 📱 Funciona perfeitamente em dispositivos móveis
 
 ---
 
@@ -114,12 +144,34 @@ python -m http.server 8000
 
 2. Use o mouse para clicar nos botões ou digite diretamente
 
-3. Operações disponíveis:
+3. **Operações disponíveis:**
+   
+   **Básicas:**
    - **Números**: 0-9
    - **Operadores**: +, -, ×, ÷
    - **Decimal**: .
+   - **Parênteses**: ( )
    - **Limpar**: C
+   - **Apagar**: ← (backspace)
    - **Calcular**: =
+   
+   **Científicas:**
+   - **√**: Raiz quadrada do número atual
+   - **x²**: Eleva ao quadrado
+   - **xʸ**: Potência (digite o número, clique xʸ, digite o expoente)
+   - **%**: Converte para porcentagem (divide por 100)
+   - **1/x**: Calcula o inverso
+   - **sin/cos/tan**: Funções trigonométricas (ângulo em graus)
+   - **log**: Logaritmo base 10
+   - **ln**: Logaritmo natural
+   - **π**: Insere o valor de Pi
+   - **e**: Insere o valor de Euler
+
+4. **Regra de 3:**
+   - Clique no botão "📐 Regra de 3"
+   - Preencha os valores A, B e C
+   - O valor X será calculado automaticamente
+   - Fórmula: A/B = C/X → X = (B×C)/A
 
 ### Versão Web
 
@@ -132,6 +184,12 @@ python -m http.server 8000
    - `Backspace`: Apagar último dígito
    - `Escape`: Limpar tudo
 
+**Regra de 3:**
+- Preencha A, B e C nos campos
+- Pressione Enter ou clique em "Calcular"
+- O resultado X aparece automaticamente
+- Use "Limpar" para nova operação
+
 ---
 
 ## 📁 Estrutura do Projeto
@@ -141,6 +199,7 @@ Calculadora-simples-em-python/
 ├── 📄 Calculadora (Editado e finalizado).py  # Versão Desktop (Tkinter)
 ├── 📁 docs/                                   # Versão Web (Brython)
 │   ├── 📄 index.html                         # Página principal
+│   ├── 📄 regra-de-3.html                    # Página de Regra de 3
 │   ├── 🎨 style.css                          # Estilos e design
 │   ├── 🐍 calculator.py                      # Lógica em Python
 │   └── 📝 README.md                          # Documentação web
@@ -163,6 +222,8 @@ A calculadora utiliza um esquema de cores cuidadosamente selecionado:
 | Botões Operadores | Laranja | `#ff6b35` |
 | Botão Clear | Roxo Claro | `#6b5eff` |
 | Botão Igual | Verde Vibrante | `#00ff88` |
+| Botões Científicos | Verde | `#2ecc71` |
+| Botão Regra de 3 | Roxo | `#9b59b6` |
 
 ---
 
@@ -182,12 +243,15 @@ Você pode testar a versão web da calculadora diretamente no GitHub Pages:
 - **Python 3.x**: Linguagem de programação
 - **Tkinter**: Framework para interface gráfica
 - **Font**: Módulo para fontes personalizadas
+- **Math**: Biblioteca para operações matemáticas avançadas
+- **Datetime**: Para timestamps no histórico
 
 ### Web
 - **HTML5**: Estrutura da página
 - **CSS3**: Estilização e responsividade
 - **Brython 3.12**: Python no navegador
 - **JavaScript**: Carregamento do Brython
+- **Math (Python)**: Funções científicas
 
 ---
 
@@ -203,6 +267,13 @@ Este projeto demonstra:
 - ✅ Uso do Brython para executar Python no navegador
 - ✅ CSS Grid e Flexbox para layouts responsivos
 - ✅ Boas práticas de organização de código
+- ✅ Implementação de funções matemáticas avançadas
+- ✅ Uso da biblioteca Math do Python
+- ✅ Sistema de histórico com timestamps
+- ✅ Gerenciamento de estado global
+- ✅ Criação de janelas modais (Toplevel)
+- ✅ Validação de formulários e entrada de dados
+- ✅ Aplicação de regra de 3 programaticamente
 
 ---
 
@@ -220,14 +291,17 @@ Contribuições são sempre bem-vindas! Se você tem alguma sugestão para melho
 
 ## 📝 Ideias para Melhorias Futuras
 
-- [ ] Adicionar histórico de cálculos
-- [ ] Implementar operações científicas (raiz, potência, etc)
+- [x] Adicionar histórico de cálculos ✅
+- [x] Implementar operações científicas (raiz, potência, etc) ✅
+- [x] Adicionar ferramenta de Regra de 3 ✅
 - [ ] Adicionar temas de cores personalizáveis
-- [ ] Salvar configurações do usuário
-- [ ] Adicionar animações mais elaboradas
+- [ ] Salvar histórico em arquivo
+- [ ] Adicionar mais funções trigonométricas (arcsin, arccos, arctan)
 - [ ] Implementar conversor de unidades
-- [ ] Adicionar modo de cálculo de porcentagem
+- [ ] Adicionar regra de 3 composta
 - [ ] Criar versão mobile nativa (Kivy)
+- [ ] Gráficos de funções matemáticas
+- [ ] Modo programador (binário, hexadecimal, etc)
 
 ---
 
