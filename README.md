@@ -33,6 +33,8 @@ O projeto começou como um exercício de aprendizado e evoluiu para uma aplicaç
 
 ### 🎨 Interface Moderna
 - ✅ Design dark mode elegante com gradientes
+- ✅ **Tema claro e escuro alternáveis** 🌙☀️
+- ✅ **Preferência de tema salva automaticamente**
 - ✅ Cores vibrantes e intuitivas para diferentes tipos de botões
 - ✅ Display de alta legibilidade com fonte personalizada
 - ✅ Efeitos visuais e animações suaves
@@ -173,6 +175,11 @@ python -m http.server 8000
    - O valor X será calculado automaticamente
    - Fórmula: A/B = C/X → X = (B×C)/A
 
+5. **Alternar Tema:**
+   - Clique no botão "☀️ Modo Claro" ou "🌙 Modo Escuro"
+   - O tema será salvo automaticamente (versão web)
+   - Escolha entre interface clara ou escura
+
 ### Versão Web
 
 1. Acesse a calculadora no navegador
@@ -211,7 +218,9 @@ Calculadora-simples-em-python/
 
 ## 🎨 Paleta de Cores
 
-A calculadora utiliza um esquema de cores cuidadosamente selecionado:
+A calculadora utiliza dois esquemas de cores:
+
+### Tema Escuro (Padrão)
 
 | Elemento | Cor | Código |
 |----------|-----|--------|
@@ -223,6 +232,20 @@ A calculadora utiliza um esquema de cores cuidadosamente selecionado:
 | Botão Clear | Roxo Claro | `#6b5eff` |
 | Botão Igual | Verde Vibrante | `#00ff88` |
 | Botões Científicos | Verde | `#2ecc71` |
+| Botão Regra de 3 | Roxo | `#9b59b6` |
+
+### Tema Claro
+
+| Elemento | Cor | Código |
+|----------|-----|--------|
+| Background Principal | Branco Suave | `#f5f5f5` |
+| Display | Cinza Claro | `#ecf0f1` |
+| Texto Display | Azul Escuro | `#2c3e50` |
+| Botões Numéricos | Cinza Claro | `#ecf0f1` |
+| Botões Operadores | Vermelho | `#e74c3c` |
+| Botão Clear | Azul | `#3498db` |
+| Botão Igual | Verde | `#2ecc71` |
+| Botões Científicos | Verde Escuro | `#27ae60` |
 | Botão Regra de 3 | Roxo | `#9b59b6` |
 
 ---
@@ -274,6 +297,9 @@ Este projeto demonstra:
 - ✅ Criação de janelas modais (Toplevel)
 - ✅ Validação de formulários e entrada de dados
 - ✅ Aplicação de regra de 3 programaticamente
+- ✅ Sistema de temas com alternância dinâmica
+- ✅ Persistência de dados (localStorage no navegador)
+- ✅ CSS customizado com transições suaves
 
 ---
 
@@ -294,7 +320,7 @@ Contribuições são sempre bem-vindas! Se você tem alguma sugestão para melho
 - [x] Adicionar histórico de cálculos ✅
 - [x] Implementar operações científicas (raiz, potência, etc) ✅
 - [x] Adicionar ferramenta de Regra de 3 ✅
-- [ ] Adicionar temas de cores personalizáveis
+- [x] Adicionar temas de cores personalizáveis ✅
 - [ ] Salvar histórico em arquivo
 - [ ] Adicionar mais funções trigonométricas (arcsin, arccos, arctan)
 - [ ] Implementar conversor de unidades

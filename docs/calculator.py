@@ -13,6 +13,44 @@ equation_text = ""
 # Lista para armazenar o histórico
 history = []
 
+# Tema atual
+current_theme = "dark"
+
+
+def toggle_theme(ev=None):
+    """Alterna entre tema claro e escuro"""
+    global current_theme
+    
+    if current_theme == "dark":
+        current_theme = "light"
+        document.body.classList.add("light-theme")
+        document["btn-theme"].text = "🌙 Modo Escuro"
+    else:
+        current_theme = "dark"
+        document.body.classList.remove("light-theme")
+        document["btn-theme"].text = "☀️ Modo Claro"
+    
+    # Salva preferência no localStorage
+    try:
+        from browser import window  # type: ignore
+        window.localStorage.setItem("theme", current_theme)
+    except:
+        pass
+
+
+def load_theme():
+    """Carrega o tema salvo"""
+    global current_theme
+    try:
+        from browser import window  # type: ignore
+        saved_theme = window.localStorage.getItem("theme")
+        if saved_theme == "light":
+            current_theme = "light"
+            document.body.classList.add("light-theme")
+            document["btn-theme"].text = "🌙 Modo Escuro"
+    except:
+        pass
+
 
 def scientific_operation(operation):
     """Executa operações científicas"""
@@ -209,6 +247,7 @@ def setup_calculator():
     document["btn-equal"].bind("click", equals)
     document["btn-clear"].bind("click", clear)
     document["btn-clear-history"].bind("click", clear_history)
+    document["btn-theme"].bind("click", toggle_theme)
     
     # Botões científicos - operações
     document["btn-sqrt"].bind("click", lambda ev: scientific_operation('sqrt'))
@@ -262,5 +301,6 @@ def setup_calculator():
 
 
 # Inicializa a calculadora quando o documento estiver pronto
+load_theme()
 setup_calculator()
 update_history_display()

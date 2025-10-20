@@ -24,6 +24,79 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.3s ease;
+        }
+
+        /* Tema Claro */
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        body.light-theme .container {
+            background: #ffffff;
+            border-color: #bdc3c7;
+        }
+
+        body.light-theme .title {
+            color: #2c3e50;
+            text-shadow: none;
+        }
+
+        body.light-theme .explanation {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border-color: #bdc3c7;
+        }
+
+        body.light-theme .formula {
+            color: #27ae60;
+        }
+
+        body.light-theme label {
+            color: #2c3e50;
+        }
+
+        body.light-theme input {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border-color: #bdc3c7;
+        }
+
+        body.light-theme input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+
+        body.light-theme .result {
+            background: #ecf0f1;
+            color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        body.light-theme .separator {
+            color: #2c3e50;
+        }
+
+        body.light-theme .divider {
+            color: #3498db;
+        }
+
+        body.light-theme .btn-calculate {
+            background: #2ecc71;
+        }
+
+        body.light-theme .btn-clear {
+            background: #e74c3c;
+        }
+
+        body.light-theme .btn-back {
+            background: #3498db;
+        }
+
+        body.light-theme .example {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border-color: #bdc3c7;
         }
 
         .container {
@@ -269,6 +342,16 @@
     <script type="text/python">
 from browser import document, alert
 
+# Carrega o tema salvo
+def load_theme():
+    try:
+        from browser import window
+        saved_theme = window.localStorage.getItem("theme")
+        if saved_theme == "light":
+            document.body.classList.add("light-theme")
+    except:
+        pass
+
 def calculate(ev):
     """Calcula a regra de 3"""
     try:
@@ -320,6 +403,9 @@ document["input-c"].bind("keypress", on_enter)
 
 # Foco inicial
 document["input-a"].focus()
+
+# Carrega tema
+load_theme()
     </script>
 </body>
 </html>

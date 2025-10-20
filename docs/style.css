@@ -12,6 +12,111 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: background 0.3s ease;
+}
+
+/* Tema Claro */
+body.light-theme {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+}
+
+body.light-theme .calculator,
+body.light-theme .history {
+    background: #ffffff;
+    border-color: #bdc3c7;
+}
+
+body.light-theme .title,
+body.light-theme .history-title {
+    color: #2c3e50;
+    text-shadow: none;
+}
+
+body.light-theme .display {
+    background: #ecf0f1;
+    color: #2c3e50;
+    border-color: #bdc3c7;
+}
+
+body.light-theme .btn-num {
+    background: #ecf0f1;
+    color: #2c3e50;
+}
+
+body.light-theme .btn-num:hover {
+    background: #bdc3c7;
+}
+
+body.light-theme .btn-op {
+    background: #e74c3c;
+    color: white;
+}
+
+body.light-theme .btn-op:hover {
+    background: #c0392b;
+}
+
+body.light-theme .btn-special {
+    background: #3498db;
+}
+
+body.light-theme .btn-special:hover {
+    background: #2980b9;
+}
+
+body.light-theme .btn-sci {
+    background: #27ae60;
+}
+
+body.light-theme .btn-sci:hover {
+    background: #229954;
+}
+
+body.light-theme .btn-equal {
+    background: #2ecc71;
+    color: white;
+}
+
+body.light-theme .btn-equal:hover {
+    background: #27ae60;
+}
+
+body.light-theme .history-list {
+    background: #ecf0f1;
+    border-color: #bdc3c7;
+}
+
+body.light-theme .history-item {
+    background: #ffffff;
+    border-left-color: #2c3e50;
+}
+
+body.light-theme .history-time {
+    color: #7f8c8d;
+}
+
+body.light-theme .history-calculation {
+    color: #2c3e50;
+}
+
+body.light-theme .history-result {
+    color: #27ae60;
+}
+
+body.light-theme .history-empty {
+    color: #95a5a6;
+}
+
+body.light-theme .btn-clear-history {
+    background: #e74c3c;
+}
+
+body.light-theme .btn-clear-history:hover {
+    background: #c0392b;
+}
+
+body.light-theme .footer {
+    color: #7f8c8d;
 }
 
 .main-container {
@@ -36,17 +141,17 @@ body {
 }
 
 .title {
-    color: #00ff88;
+    color: #1abc9c;
     text-align: center;
     margin-bottom: 20px;
     font-size: 28px;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    text-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
 }
 
 .display {
     background: #2e2e3e;
-    color: #00ff88;
+    color: #1abc9c;
     font-size: 36px;
     font-weight: bold;
     padding: 30px 20px;
@@ -123,14 +228,14 @@ body {
 /* Botão igual */
 .btn-equal {
     grid-column: 1 / 5;
-    background: #00ff88;
+    background: #1abc9c;
     color: #1e1e2e;
     font-size: 28px;
     padding: 20px;
 }
 
 .btn-equal:hover {
-    background: #00dd77;
+    background: #16a085;
 }
 
 /* Botão Regra de 3 */
@@ -151,6 +256,21 @@ body {
 
 .btn-rule:hover {
     background: #8e44ad;
+}
+
+/* Botão de Tema */
+.btn-theme {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #34495e;
+    color: white;
+    margin-top: 10px;
+}
+
+.btn-theme:hover {
+    background: #2c3e50;
 }
 
 /* Botões científicos */
@@ -174,7 +294,7 @@ body {
 }
 
 .footer {
-    color: #8e8e9e;
+    color: #95a5a6;
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
@@ -198,12 +318,12 @@ body {
 }
 
 .history-title {
-    color: #00ff88;
+    color: #1abc9c;
     text-align: center;
     margin-bottom: 15px;
     font-size: 20px;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    text-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
 }
 
 .history-list {
@@ -239,7 +359,7 @@ body {
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 8px;
-    border-left: 4px solid #00ff88;
+    border-left: 4px solid #1abc9c;
     animation: slideIn 0.3s ease;
 }
 
@@ -255,25 +375,25 @@ body {
 }
 
 .history-time {
-    color: #8e8e9e;
+    color: #95a5a6;
     font-size: 11px;
     margin-bottom: 5px;
 }
 
 .history-calculation {
-    color: #ffffff;
+    color: #ecf0f1;
     font-size: 14px;
     font-family: 'Consolas', monospace;
 }
 
 .history-result {
-    color: #00ff88;
+    color: #1abc9c;
     font-weight: bold;
     font-size: 16px;
 }
 
 .history-empty {
-    color: #8e8e9e;
+    color: #95a5a6;
     text-align: center;
     margin-top: 50%;
     transform: translateY(-50%);

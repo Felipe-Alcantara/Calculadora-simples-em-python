@@ -8,6 +8,53 @@ criador = 'dj_felixo'
 # Lista para armazenar o histórico
 history = []
 
+# Variável global para o tema atual
+current_theme = "dark"
+
+# Definição dos temas
+themes = {
+    "dark": {
+        "bg_main": "#1e1e2e",
+        "bg_secondary": "#2e2e3e",
+        "bg_tertiary": "#3e3e5e",
+        "fg_primary": "#1abc9c",
+        "fg_secondary": "#ecf0f1",
+        "fg_tertiary": "#95a5a6",
+        "btn_num": "#3e3e5e",
+        "btn_num_hover": "#5e5e7e",
+        "btn_op": "#ff6b35",
+        "btn_op_hover": "#ff8555",
+        "btn_special": "#6b5eff",
+        "btn_special_hover": "#8b7eff",
+        "btn_sci": "#2ecc71",
+        "btn_sci_hover": "#27ae60",
+        "btn_equal": "#1abc9c",
+        "btn_equal_fg": "#1e1e2e",
+        "btn_rule": "#9b59b6",
+        "border": "#3e3e5e"
+    },
+    "light": {
+        "bg_main": "#f5f5f5",
+        "bg_secondary": "#ffffff",
+        "bg_tertiary": "#e0e0e0",
+        "fg_primary": "#2c3e50",
+        "fg_secondary": "#34495e",
+        "fg_tertiary": "#7f8c8d",
+        "btn_num": "#ecf0f1",
+        "btn_num_hover": "#bdc3c7",
+        "btn_op": "#e74c3c",
+        "btn_op_hover": "#c0392b",
+        "btn_special": "#3498db",
+        "btn_special_hover": "#2980b9",
+        "btn_sci": "#27ae60",
+        "btn_sci_hover": "#229954",
+        "btn_equal": "#2ecc71",
+        "btn_equal_fg": "#ffffff",
+        "btn_rule": "#9b59b6",
+        "border": "#bdc3c7"
+    }
+}
+
 
 def button_press(num):
     global equation_text
@@ -143,6 +190,96 @@ def clear():
     global equation_text
     equation_label.set("")
     equation_text = ''
+
+
+def toggle_theme():
+    """Alterna entre tema claro e escuro"""
+    global current_theme
+    current_theme = "light" if current_theme == "dark" else "dark"
+    apply_theme()
+
+
+def apply_theme():
+    """Aplica o tema atual a todos os elementos"""
+    theme = themes[current_theme]
+    
+    # Janela principal
+    window.configure(bg=theme["bg_main"])
+    
+    # Container principal
+    main_container.configure(bg=theme["bg_main"])
+    
+    # Frame da calculadora
+    calculator_frame.configure(bg=theme["bg_main"])
+    
+    # Display
+    label.configure(
+        bg=theme["bg_secondary"],
+        fg=theme["fg_primary"],
+        borderwidth=3
+    )
+    
+    # Frame dos botões numéricos
+    frame.configure(bg=theme["bg_main"])
+    sci_frame.configure(bg=theme["bg_main"])
+    
+    # Histórico
+    history_frame.configure(bg=theme["bg_secondary"])
+    history_title.configure(bg=theme["bg_secondary"], fg=theme["fg_primary"])
+    history_scroll_frame.configure(bg=theme["bg_secondary"])
+    history_text.configure(
+        bg=theme["bg_main"],
+        fg=theme["fg_secondary"],
+        insertbackground=theme["fg_primary"]
+    )
+    clear_history_btn.configure(bg=theme["btn_op"], activebackground=theme["btn_op_hover"])
+    
+    # Atualiza cores dos botões numéricos
+    for widget in frame.winfo_children():
+        if isinstance(widget, Button):
+            btn_text = widget.cget("text")
+            if btn_text in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']:
+                widget.configure(
+                    bg=theme["btn_num"],
+                    fg=theme["fg_secondary"],
+                    activebackground=theme["btn_num_hover"]
+                )
+            elif btn_text in ['+', '-', '×', '÷']:
+                widget.configure(
+                    bg=theme["btn_op"],
+                    activebackground=theme["btn_op_hover"]
+                )
+            elif btn_text == 'C':
+                widget.configure(
+                    bg=theme["btn_special"],
+                    activebackground=theme["btn_special_hover"]
+                )
+    
+    # Atualiza botões científicos
+    for widget in sci_frame.winfo_children():
+        if isinstance(widget, Button):
+            widget.configure(
+                bg=theme["btn_sci"],
+                activebackground=theme["btn_sci_hover"]
+            )
+    
+    # Botão igual
+    equal_btn.configure(
+        bg=theme["btn_equal"],
+        fg=theme["btn_equal_fg"],
+        activebackground=theme["btn_sci_hover"]
+    )
+    
+    # Botão regra de 3
+    rule_btn.configure(
+        bg=theme["btn_rule"],
+        activebackground="#8e44ad"
+    )
+    
+    # Botão de tema
+    theme_icon = "🌙" if current_theme == "light" else "☀️"
+    theme_text = "Modo Escuro" if current_theme == "light" else "Modo Claro"
+    theme_btn.configure(text=f"{theme_icon} {theme_text}")
 
 
 window = Tk()
@@ -597,6 +734,22 @@ rule_btn_style = {
 
 rule_btn = Button(calculator_frame, text='📐 Regra de 3', command=open_rule_of_three, **rule_btn_style)
 rule_btn.pack(pady=(0, 10), fill=X, padx=10)
+
+# Botão de Tema
+theme_btn_style = {
+    'height': 1,
+    'font': font.Font(family="Arial", size=11, weight="bold"),
+    'bg': '#34495e',
+    'fg': 'white',
+    'activebackground': '#2c3e50',
+    'activeforeground': 'white',
+    'relief': RAISED,
+    'borderwidth': 2,
+    'cursor': 'hand2'
+}
+
+theme_btn = Button(calculator_frame, text='☀️ Modo Claro', command=toggle_theme, **theme_btn_style)
+theme_btn.pack(pady=(0, 10), fill=X, padx=10)
 
 # Inicializa o histórico vazio
 update_history_display()
