@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Pro - Brython</title>
+    
+    <!-- Brython CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="brython()">
+    <div class="container">
+        <div class="calculator">
+            <h1 class="title">Calculadora</h1>
+            
+            <!-- Display -->
+            <div id="display" class="display">0</div>
+            
+            <!-- Botões -->
+            <div class="buttons">
+                <!-- Linha 1 -->
+                <button class="btn btn-num" id="btn-7">7</button>
+                <button class="btn btn-num" id="btn-8">8</button>
+                <button class="btn btn-num" id="btn-9">9</button>
+                <button class="btn btn-op" id="btn-div">÷</button>
+                
+                <!-- Linha 2 -->
+                <button class="btn btn-num" id="btn-4">4</button>
+                <button class="btn btn-num" id="btn-5">5</button>
+                <button class="btn btn-num" id="btn-6">6</button>
+                <button class="btn btn-op" id="btn-mult">×</button>
+                
+                <!-- Linha 3 -->
+                <button class="btn btn-num" id="btn-1">1</button>
+                <button class="btn btn-num" id="btn-2">2</button>
+                <button class="btn btn-num" id="btn-3">3</button>
+                <button class="btn btn-op" id="btn-minus">-</button>
+                
+                <!-- Linha 4 -->
+                <button class="btn btn-special" id="btn-clear">C</button>
+                <button class="btn btn-num" id="btn-0">0</button>
+                <button class="btn btn-num" id="btn-dot">.</button>
+                <button class="btn btn-op" id="btn-plus">+</button>
+                
+                <!-- Linha 5 - Botão Igual -->
+                <button class="btn btn-equal" id="btn-equal">=</button>
+            </div>
+            
+            <p class="footer">By: dj_felixo</p>
+        </div>
+    </div>
+
+    <!-- Script Python em Brython -->
+    <script type="text/python" src="calculator.py"></script>
+</body>
+</html>
