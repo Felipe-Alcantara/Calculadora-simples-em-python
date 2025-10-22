@@ -10,9 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=2.0">
+    <link rel="stylesheet" href="style.css?v=2.1">
 </head>
 <body onload="brython()">
+    <!-- Background animado com elementos matemáticos -->
+    <div class="math-background" id="math-bg"></div>
+    
     <div class="main-container">
         <!-- Calculadora -->
         <div class="calculator-container">
@@ -106,5 +109,73 @@
 
     <!-- Script Python em Brython -->
     <script type="text/python" src="calculator.py"></script>
+    
+    <!-- Script para animação de fundo -->
+    <script>
+        // Elementos matemáticos para exibir
+        const mathSymbols = [
+            '∑', '∫', '∞', 'π', '√', '∂', 'Δ', '∇', 
+            'α', 'β', 'γ', 'θ', 'λ', 'μ', 'σ', 'φ',
+            '÷', '×', '±', '≠', '≈', '≤', '≥', '∈',
+            '∀', '∃', '∅', '∩', '∪', '⊂', '⊃', '⊆',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'sin', 'cos', 'tan', 'log', 'ln', 'exp',
+            'x²', 'x³', 'xⁿ', '√x', '∛x',
+            'f(x)', 'dy/dx', 'd²y/dx²',
+            'lim', 'Σ', '∏', '∫∫', '∫∫∫'
+        ];
+
+        function createMathElement() {
+            const mathBg = document.getElementById('math-bg');
+            const element = document.createElement('div');
+            element.className = 'math-symbol';
+            
+            // Símbolo aleatório
+            element.textContent = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
+            
+            // Posição inicial aleatória
+            element.style.left = Math.random() * 100 + '%';
+            element.style.top = Math.random() * 100 + '%';
+            
+            // Tamanho aleatório
+            const size = Math.random() * 30 + 20; // 20px a 50px
+            element.style.fontSize = size + 'px';
+            
+            // Opacidade aleatória
+            const opacity = Math.random() * 0.15 + 0.05; // 0.05 a 0.2
+            element.style.opacity = opacity;
+            
+            // Duração da animação aleatória
+            const duration = Math.random() * 10 + 8; // 8s a 18s
+            element.style.animationDuration = duration + 's';
+            
+            // Delay aleatório
+            const delay = Math.random() * 5;
+            element.style.animationDelay = delay + 's';
+            
+            mathBg.appendChild(element);
+            
+            // Remove o elemento após a animação
+            setTimeout(() => {
+                element.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // Cria elementos continuamente
+        function initMathBackground() {
+            // Cria 30 elementos iniciais
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => createMathElement(), i * 200);
+            }
+            
+            // Continua criando novos elementos
+            setInterval(() => {
+                createMathElement();
+            }, 600);
+        }
+
+        // Inicia quando a página carregar
+        window.addEventListener('load', initMathBackground);
+    </script>
 </body>
 </html>

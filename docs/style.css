@@ -1,7 +1,7 @@
 /* 
  * Calculadora Científica Pro - Stylesheet
- * Version: 2.0
- * Última atualização: Texto do histórico clareado para melhor legibilidade
+ * Version: 2.1
+ * Última atualização: Adicionado fundo animado com elementos matemáticos flutuantes
  */
 
 * {
@@ -19,6 +19,91 @@ body {
     align-items: center;
     padding: 20px;
     transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background animado com elementos matemáticos */
+.math-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.math-symbol {
+    position: absolute;
+    color: #1abc9c;
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+    animation: float-and-fade 15s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes float-and-fade {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--symbol-opacity, 0.15);
+    }
+    50% {
+        transform: translate(var(--float-x, 50px), var(--float-y, -100px)) rotate(var(--rotate, 180deg));
+        opacity: var(--symbol-opacity, 0.15);
+    }
+    90% {
+        opacity: var(--symbol-opacity, 0.15);
+    }
+    100% {
+        transform: translate(var(--float-x-end, -30px), var(--float-y-end, -200px)) rotate(var(--rotate-end, 360deg));
+        opacity: 0;
+    }
+}
+
+/* Variações de animação para mais naturalidade */
+.math-symbol:nth-child(2n) {
+    --float-x: -60px;
+    --float-y: -120px;
+    --float-x-end: 40px;
+    --float-y-end: -180px;
+    --rotate: -160deg;
+    --rotate-end: -340deg;
+}
+
+.math-symbol:nth-child(3n) {
+    --float-x: 80px;
+    --float-y: -90px;
+    --float-x-end: -50px;
+    --float-y-end: -220px;
+    --rotate: 200deg;
+    --rotate-end: 400deg;
+}
+
+.math-symbol:nth-child(5n) {
+    --float-x: -40px;
+    --float-y: -150px;
+    --float-x-end: 60px;
+    --float-y-end: -250px;
+    --rotate: -180deg;
+    --rotate-end: -380deg;
+}
+
+/* Tema claro - símbolos mais escuros */
+body.light-theme .math-symbol {
+    color: #2c3e50;
+}
+
+/* Garante que o conteúdo fique acima do background */
+.main-container {
+    position: relative;
+    z-index: 10;
 }
 
 /* Tema Claro */
