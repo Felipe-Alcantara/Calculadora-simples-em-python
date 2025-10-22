@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=2.7">
 </head>
 <body onload="brython()">
     <!-- Background animado com elementos matemáticos -->
@@ -133,45 +133,60 @@
             // Símbolo aleatório
             element.textContent = mathSymbols[Math.floor(Math.random() * mathSymbols.length)];
             
-            // Posição inicial aleatória
-            element.style.left = Math.random() * 100 + '%';
-            element.style.top = Math.random() * 100 + '%';
+            // Posição inicial aleatória por toda a tela
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            element.style.left = startX + '%';
+            element.style.top = startY + '%';
             
-            // Tamanho aleatório
-            const size = Math.random() * 30 + 20; // 20px a 50px
+            // Tamanho aleatório controlado
+            const size = Math.random() * 18 + 26; // 26px a 44px
             element.style.fontSize = size + 'px';
             
-            // Opacidade aleatória
-            const opacity = Math.random() * 0.15 + 0.05; // 0.05 a 0.2
-            element.style.opacity = opacity;
+            // Opacidade aumentada
+            const baseOpacity = Math.random() * 0.08 + 0.1; // 0.1 a 0.18
+            element.style.opacity = baseOpacity;
             
-            // Duração da animação aleatória
-            const duration = Math.random() * 10 + 8; // 8s a 18s
+            // Direção de movimento aleatória (maior amplitude)
+            const moveX = (Math.random() - 0.5) * 150; // -75 a 75
+            const moveY = (Math.random() - 0.5) * 150; // -75 a 75
+            element.style.setProperty('--move-x', moveX + 'px');
+            element.style.setProperty('--move-y', moveY + 'px');
+            
+            // Rotação aleatória
+            const rotation = (Math.random() - 0.5) * 360; // -180 a 180
+            element.style.setProperty('--rotation', rotation + 'deg');
+            
+            // Duração mais rápida
+            const durations = [6, 7, 8, 9, 10];
+            const duration = durations[Math.floor(Math.random() * durations.length)];
             element.style.animationDuration = duration + 's';
             
-            // Delay aleatório
-            const delay = Math.random() * 5;
-            element.style.animationDelay = delay + 's';
+            // Sem delay, começa imediatamente
+            element.style.animationDelay = '0s';
             
             mathBg.appendChild(element);
             
-            // Remove o elemento após a animação
+            // Remove o elemento após a animação completar
             setTimeout(() => {
-                element.remove();
-            }, (duration + delay) * 1000);
+                if (element.parentNode) {
+                    element.remove();
+                }
+            }, duration * 1000 + 100);
         }
 
         // Cria elementos continuamente
         function initMathBackground() {
-            // Cria 30 elementos iniciais
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => createMathElement(), i * 200);
+            // Cria 100 elementos iniciais de forma rápida
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => createMathElement(), i * 80);
             }
             
-            // Continua criando novos elementos
+            // Continua criando novos elementos muito rapidamente
             setInterval(() => {
                 createMathElement();
-            }, 600);
+                createMathElement(); // Cria 2 de uma vez
+            }, 250);
         }
 
         // Inicia quando a página carregar
